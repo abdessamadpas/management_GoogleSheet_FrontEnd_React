@@ -1,0 +1,93 @@
+
+
+
+.menu .dropdown:focus + ul,
+.menu ul:hover { 
+    display:flex; 
+}
+.action-icons-wrapper {
+    display: flex;
+    gap: 8px; /* spacing between buttons */
+}
+
+.action-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    box-shadow: none;
+    appearance: none; /* remove default styles in some browsers */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.action-button:hover {
+    background-color: transparent; /* ensure no background on hover */
+}
+.delete-confirmation-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.delete-confirmation-popup p{
+    color: black;
+}
+.highlighted-row {
+    background-color: #cdf6d4; /* A soft green */
+}
+.update-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Ensure the popup appears on top */
+}
+.dropdown-content button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #14162b;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 13px;
+    box-shadow: none;
+}
+.link-like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #14162b;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.link-like-button:focus {
+    outline: none;
+}
+
+
+
+
+.link-like-button:hover {
+    text-decoration: none;
+    color: #0ee02e;
+}
+.update-popup p{color: #14162b;}

@@ -786,6 +786,7 @@ row-gap: 20px;
 	}
 }
  .dropdown {
+	z-index: 10;
 	 position: relative;
 	 height: 53px;
 	 width: 40px;
@@ -851,7 +852,7 @@ row-gap: 20px;
     padding: 20px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 2;
-    width: 60%;
+    width: 45%;
     /* height: 80%; */
     border-radius: 15px;
     padding: 15px;
@@ -869,7 +870,7 @@ row-gap: 20px;
 
 
  .dropdown ul {
-	 position: absolute;
+	position: absolute;
 	 background: var(--dropdown-bg);
 	 height: 110px;
 	 width: 120px;
@@ -886,11 +887,13 @@ row-gap: 20px;
 	 font-size: 12px;
 }
  .dropdown.is-active ul {
+
 	 opacity: 1;
 	 pointer-events: all;
 	 transform: translatey(25px);
 }
  .dropdown.is-active ul li:hover {
+	
 	 background-color: var(--dropdown-hover);
 }
  .button-wrapper {
@@ -1128,4 +1131,233 @@ row-gap: 20px;
 	 background: var(--scrollbar-bg);
 	 border-radius: 10px;
 }
- 
+
+
+.center-box {
+    display: flex;
+    flex-direction: column; /* stack child elements vertically */
+    justify-content: center;
+    align-items: center;
+    height: auto; /* adjust the height based on content */
+    min-height: 100vh; /* minimum height to occupy full viewport */
+    padding: 20px; /* give some space */
+}
+.parent-of-centered-box {
+    position: relative; /* This ensures the centered-box is positioned relative to this container */
+    height: 100%; /* Example height, adjust as needed */
+}
+
+.centered-box {
+    position: absolute; /* This will position the box with respect to its nearest positioned ancestor */
+    top: 15%; /* Positions the box at the top of its parent */
+    left: 0; /* Positions the box at the left edge of its parent */
+    right: 0; /* Ensures the box stretches across the width of its parent */
+    padding: 20px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center; /* vertically centers the input */
+    justify-content: flex-start; /* align to the left */
+    width: 100%; /* takes the full width */
+    padding: 10px 0; /* some vertical spacing */
+}
+
+button {
+	justify-content: center;
+    align-items: center;
+	background-color: #3498db; /* primary color */
+    border: none;
+    border-radius: 25px; /* rounded corners */
+    color: white; /* text color */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600; /* semi-bold */
+    letter-spacing: 1px; /* slight spacing between letters */
+    outline: none; /* remove default focus outline */
+    padding: 12px 24px; /* vertical and horizontal padding */
+    position: relative; /* required for pseudo-elements */
+    text-transform: uppercase; /* make text uppercase */
+    transition: transform 0.2s, box-shadow 0.2s;
+	
+    /* Create a subtle shadow effect */
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	border: none;
+	outline: none; 
+}
+
+	.button:hover {
+		/* Slight scaling when hovered */
+		transform: scale(1.05);
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+	}
+	
+	.button:active {
+		/* Push effect when button is clicked */
+		transform: scale(0.98);
+		box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+	}
+	
+	.button::before,
+	.button::after {
+		/* Adding pseudo-elements for extra flair */
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: inherit;
+		background: rgba(255, 255, 255, 0.1);
+		pointer-events: none; /* ensure pseudo-element doesn't interfere with button interactions */
+	}
+	
+	.button::before {
+		/* This will be a subtle inner border glow */
+		margin: 4px; /* slight margin to create the effect */
+		z-index: -1; /* place under the button content */
+	}
+	
+	.button::after {
+		/* This will be a subtle outer glow */
+		margin: -4px; /* slight margin to create the effect */
+		z-index: -2; /* place further under the button content */
+	}
+	
+	/* Overall background overlay */
+.popupOpen-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* The actual popup content box */
+.popupOpen-content {
+    width: 100%;
+    max-width: 800px; /* adjust as needed */
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    position: relative;
+    z-index: 1001;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transform: translateY(0);
+    opacity: 1;
+	height: 100%;
+}
+
+/* Title styling */
+.popupOpen-content h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Styling for each data row (ID, First Name, etc.) */
+.popupOpen-content div {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Close button styling */
+.popupOpen-content button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.popupOpen-content button:hover {
+    background-color: #555;
+}
+	
+.scroll-container {
+    max-height: 300px; /* Or any value that suits your design */
+    overflow-y: auto;  /* This will add vertical scroll if content exceeds the max-height */
+}	
+
+.popupContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 0 auto;
+	
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 45%; /* or calc(50% - 10px) for accounting margins or paddings */
+    margin-bottom: 10px;
+	
+}
+
+.label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.inputCustom, .selectCustom {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.submit {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.submitBtn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+}
+
+.submitBtn:hover {
+    background-color: #0056b3;
+}
+.scroll-containerOpen {
+    max-height: 83%; /* Or whatever maximum height you prefer */
+    overflow-y: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+}
+.scroll-containerAdd {
+    max-height: 450px; /* Or whatever maximum height you prefer */
+    overflow-y: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+}

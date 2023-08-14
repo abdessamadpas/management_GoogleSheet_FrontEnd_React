@@ -1,82 +1,97 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react';
 import '../App.css';
+import 'react-notifications/lib/notifications.css';
+import axios from 'axios';
+import { NotificationManager, NotificationContainer } from 'react-notifications';
+
+
 function ImportFromSheet() {
-    const [openPopupId, setOpenPopupId] = useState(null);
+  const [openPopupId, setOpenPopupId] = useState(null);
+  const [data, setData] = useState([]);
+  const [sheetId, setSheetId] = useState('');
 
-  
-    const handleOpenPopup = (id) => {
+  const handleOpenPopup = (id) => {
       setOpenPopupId(id === openPopupId ? null : id);
-    };
-    const data = [
-        // {
-        //   "id": 1,
-        //   "name": "Leanne Graham",
-        //   "username": "Bret",
-        //   "email":""
-        // },
-        // {
-        //   "id": 2,
-        //   "name": "Ervin Howell",
-        //   "username": "Antonette",
-        //   "email":""
-        // },
-        
-        // {
-        //   "id":3,
-        //   "name": "Ervin Howell",
-        //   "username": "Antonette",
-        //   "email":""
-        // },
-      ]
-  return (
+  };
 
-    <div  className="content-section">
-       <div className={ data.length != 0 ? 'table-header' : "table-header-null"}>
-        {data.length != 0 ?     <div className="content-section-title">table data</div>  : null}
-        <div className="search-bar">
-          <input type="text" id="search-bar" placeholder="Search"/>
-        </div>
-      </div> 
-    {data &&   <ul>  
-  
-    { data.map((element) =>
-   
-    <li key={element.id} className="adobe-product">
-      <div className="products">
-        <img className="profile-img" src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt=""/>
-        wewe 
-      </div>
-      <div className="products">
-       wewe 
-      </div>
-      <div className="products">
-      wewe 
-      </div>
-      <span className="status">
-       <span className="status-circle green"></span>
-       Updated</span>
-      <div className="button-wrapper">
-       <button className="content-button status-button open">Open</button>
-      <div className="menu">
-        <button className="dropdown" onClick={()=>handleOpenPopup(element.id)}>
-        {element.id === openPopupId && (
-          <ul>
-            <li><a href="#">Go to Discover</a></li>
-            <li><a href="#">Update</a></li>
-          </ul>
-        )}
-        </button>
-       </div>
-      </div>
-     </li> 
-    )}
-  
-</ul>  }
-   
-  
-   </div>
+  const createNotification = (type) => {
+    switch (type) {
+      case 'info':
+        NotificationManager.info('Info message');
+        break;
+      case 'success':
+        NotificationManager.success('Success message', 'Operation Successful');
+        break;
+      case 'error':
+        NotificationManager.error('Error message', 'Operation Failed', 5000);
+        break;
+      default:
+        break;
+    }
+  };
 
-    )
-}
-
-export default ImportFromSheet
+  const handleValiderClick = async () => {
+  if (!sheetId) {
+    createNotification('info');
+    return;
+  }
+  
+  try {
+    const response = await axios.get(`http://localhost:8080/api/v1/googlesheets/${sheetId}`);
+    
+    setData(prevData => [...prevData, response.data]);
+    setSheetId('');
+    createNotification('success');
+  } catch (error) {
+    // Axios puts the response inside the error in case of HTTP errors
+    if (error.response) {
+      console.error("There was a response error:", error.response.data);
+    } else if (error.request) {
+      console.error("The request was made but no response was received");
+    } else {
+      console.error("Error setting up the request", error.message);
+    }
+    createNotification('error');
+  }
+};
+    return (
+      <div className="center-container">
+          <div className="center-box">
+              {/* Sheet ID input and Valider button */}
+              <div className="centered-box">
+                  <input 
+                      type="text" 
+                      placeholder="Enter Sheet ID" 
+                      value={sheetId} 
+                      onChange={(e) => setSheetId(e.target.value)} 
+                  />
+                  <p>
+                    you sheetID is : https://docs.google.com/spreadsheets/d/SheetID/edit#gid=0
+                  </p>
+                  <button className='button' onClick={handleValiderClick}>Valider</button>
+              </div>
+              {/* Search bar */}
+              <div className="search-bar">
+                  <input type="text" id="search-bar" placeholder="Search" />
+              </div>
+  
+              {/* Table header */}
+              <div className={data.length !== 0 ? 'table-header' : "table-header-null"}>
+                  {data.length !== 0 ? <div className="content-section-title">table data</div> : null}
+              </div>
+  
+              {/* Table content */}
+              {data && <ul>
+                  {data.map((element) =>
+                      <li key={element.id} className="adobe-product">
+                          {/* Your existing code to display each row... */}
+                      </li>
+                  )}
+              </ul>}
+          </div>
+      
+          <NotificationContainer/>
+ </div>
+  )
+  }  
+export default ImportFromSheet;
