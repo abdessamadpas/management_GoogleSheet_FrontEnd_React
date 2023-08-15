@@ -67,7 +67,7 @@ function ImportFromSheet() {
                   
                   <div class="tooltip-container">
                     <img src={exclamation}  />
-                    <span class="tooltip">https://docs.google.com/spreadsheets/d/SheetID/edit#gid=0</span>
+                    <span class="tooltip">https://docs.google.com/spreadsheets/d/<span class="green">SheetID</span>/edit#gid=0</span>
                   </div>
                 </div>
                  
