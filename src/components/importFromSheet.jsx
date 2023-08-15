@@ -41,7 +41,7 @@ function ImportFromSheet() {
     
     setData(prevData => [...prevData, response.data]);
     setSheetId('');
-    createNotification('success');
+    createNotification('success',200);
   } catch (error) {
     // Axios puts the response inside the error in case of HTTP errors
     if (error.response) {
@@ -88,9 +88,9 @@ function ImportFromSheet() {
                       </li>
                   )}
               </ul>}
+          <NotificationContainer/>
           </div>
       
-          <NotificationContainer/>
  </div>
   )
   }  

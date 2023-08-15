@@ -35,7 +35,6 @@ function UploadFromDevice() {
                   'Content-Type': 'multipart/form-data'
               }
           }).then(response => {
-              console.log('File uploaded successfully:', response.data);
               createNotification('success', 'File uploaded successfully!', 'Success');
           }).catch(error => {
               console.error('Error uploading file:', error);

@@ -4,7 +4,7 @@ import { Element } from 'react-scroll';
 import { NotificationManager, NotificationContainer } from 'react-notifications';
 import axios from 'axios';
 import 'react-notifications/lib/notifications.css';
-import PropTypes from 'prop-types';
+    import PropTypes from 'prop-types';
 
     function EditPopup({togglePopup,   person, onClose }) {
         const [updatedPerson, setUpdatedPerson] = useState(person);
@@ -174,13 +174,13 @@ import PropTypes from 'prop-types';
 </div>
 
 
-    {/* ... you can continue adding other fields in the same pattern */}
 </Element>
 
             <button onClick={handleSubmit}>Save Changes</button>
             <button onClick={() => onClose(false)}>Cancel</button>
-        </div>
             <NotificationContainer/>
+        </div>
+           
            
         </div>
     );

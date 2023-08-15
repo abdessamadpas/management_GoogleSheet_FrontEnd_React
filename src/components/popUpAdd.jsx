@@ -5,8 +5,19 @@ import { NotificationManager, NotificationContainer } from 'react-notifications'
 import { Element } from 'react-scroll';
 import 'react-notifications/lib/notifications.css';
 import '../App.css';
+import PropTypes from 'prop-types';
 function PopUpAdd({ togglePopup } ) {
-  const createNotification = (type, message, title = 'Notification', duration = 5000, callback = null) => {
+
+  
+  PopUpAdd.propTypes = {
+    togglePopup: PropTypes.func.isRequired,
+    person: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
+ };
+ PopUpAdd.defaultProps = {
+    togglePopup: () => console.warn('togglePopup function is not provided!'),
+ };
+   const createNotification = (type, message, title = 'Notification', duration = 5000, callback = null) => {
     switch (type) {
       case 'success':
         NotificationManager.success(message, title);
@@ -54,8 +65,12 @@ function PopUpAdd({ togglePopup } ) {
   };
   
   const handleSubmit = () => {
-   
-    console.log("DATAFORM"+  JSON.stringify(formData));
+    const allFieldsFilled = Object.values(formData).every((value) => value !== '' && value !== null);
+  
+    if (!allFieldsFilled) {
+      createNotification('warning', 'You need to fill all data', 'Warning');
+      return;
+    }
     axios.post('http://localhost:8080/api/v1/googlesheets/persons', formData, {
       headers: {
         'Content-Type': 'application/json'
@@ -64,7 +79,13 @@ function PopUpAdd({ togglePopup } ) {
     .then(response => {
       console.log("Data added successfully:", response.data);
       createNotification('success', 'Data added successfully', 'Success');
-      togglePopup();
+      setTimeout(() => {
+        if (typeof togglePopup === 'function') {
+           togglePopup();
+        } else {
+           console.error('togglePopup is not a function');
+        }
+     }, 1000);
       
 
     })
@@ -141,8 +162,9 @@ function PopUpAdd({ togglePopup } ) {
           <button className='submitBtn' onClick={handleSubmit}>Add</button>
         </div>
       </div>
-      </Element>
       <NotificationContainer/>
+      </Element>
+      
    
     </div>
   )
