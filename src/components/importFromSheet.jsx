@@ -3,7 +3,7 @@ import '../App.css';
 import 'react-notifications/lib/notifications.css';
 import axios from 'axios';
 import { NotificationManager, NotificationContainer } from 'react-notifications';
-
+import exclamation from '../assets/images/exclamation.png';
 
 function ImportFromSheet() {
   const [openPopupId, setOpenPopupId] = useState(null);
@@ -56,42 +56,30 @@ function ImportFromSheet() {
 };
     return (
       <div className="center-container">
-          <div className="center-box">
-              {/* Sheet ID input and Valider button */}
-              <div className="centered-box">
-                  <input 
-                      type="text" 
-                      placeholder="Enter Sheet ID" 
-                      value={sheetId} 
-                      onChange={(e) => setSheetId(e.target.value)} 
-                  />
-                  <p>
-                    you sheetID is : https://docs.google.com/spreadsheets/d/SheetID/edit#gid=0
-                  </p>
-                  <button className='button' onClick={handleValiderClick}>Valider</button>
-              </div>
-              {/* Search bar */}
+     
+            
               <div className="search-bar">
-                  <input type="text" id="search-bar" placeholder="Search" />
+                <h1> Enter ur sheet id</h1>
+                <div className='section1'>
+                   <input type="text" id="search-bar"  placeholder="Enter Sheet ID" 
+                      value={sheetId} 
+                      onChange={(e) => setSheetId(e.target.value)}  />
+                  
+                  <div class="tooltip-container">
+                    <img src={exclamation}  />
+                    <span class="tooltip">https://docs.google.com/spreadsheets/d/SheetID/edit#gid=0</span>
+                  </div>
+                </div>
+                 
+<button className='button' onClick={handleValiderClick}>Valider</button>
               </div>
   
-              {/* Table header */}
-              <div className={data.length !== 0 ? 'table-header' : "table-header-null"}>
-                  {data.length !== 0 ? <div className="content-section-title">table data</div> : null}
-              </div>
-  
-              {/* Table content */}
-              {data && <ul>
-                  {data.map((element) =>
-                      <li key={element.id} className="adobe-product">
-                          {/* Your existing code to display each row... */}
-                      </li>
-                  )}
-              </ul>}
+        
+             
           <NotificationContainer/>
           </div>
       
- </div>
+
   )
   }  
 export default ImportFromSheet;
