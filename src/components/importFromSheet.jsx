@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import '../App.css';
+import './importsheet.css';
 import 'react-notifications/lib/notifications.css';
 import axios from 'axios';
 import { NotificationManager, NotificationContainer } from 'react-notifications';
-
+import exclamation from '../assets/images/exclamation.png';
 
 function ImportFromSheet() {
   const [openPopupId, setOpenPopupId] = useState(null);
@@ -20,7 +20,7 @@ function ImportFromSheet() {
         NotificationManager.info('Info message');
         break;
       case 'success':
-        NotificationManager.success('Success message', 'Operation Successful');
+        NotificationManager.success('Importation avec succès');
         break;
       case 'error':
         NotificationManager.error('Error message', 'Operation Failed', 5000);
@@ -37,11 +37,12 @@ function ImportFromSheet() {
   }
   
   try {
-    const response = await axios.get(`http://localhost:8080/api/v1/googlesheets/${sheetId}`);
+    console.log(sheetId);
+    const response =  await axios.get(`http://localhost:8080/api/v1/googlesheets/${sheetId}`);
     
     setData(prevData => [...prevData, response.data]);
     setSheetId('');
-    createNotification('success',200);
+    createNotification('success');  // Corrected this line
   } catch (error) {
     // Axios puts the response inside the error in case of HTTP errors
     if (error.response) {
@@ -56,42 +57,39 @@ function ImportFromSheet() {
 };
     return (
       <div className="center-container">
-          <div className="center-box">
-              {/* Sheet ID input and Valider button */}
-              <div className="centered-box">
-                  <input 
-                      type="text" 
-                      placeholder="Enter Sheet ID" 
-                      value={sheetId} 
-                      onChange={(e) => setSheetId(e.target.value)} 
-                  />
-                  <p>
-                    you sheetID is : https://docs.google.com/spreadsheets/d/SheetID/edit#gid=0
-                  </p>
-                  <button className='button' onClick={handleValiderClick}>Valider</button>
-              </div>
-              {/* Search bar */}
+     
+            
               <div className="search-bar">
-                  <input type="text" id="search-bar" placeholder="Search" />
+                <h1> Enter ur sheet id</h1>
+                <div className='section1'>
+                   <input type="text" placeholder="Enter Sheet ID" 
+                      value={sheetId} 
+                      onChange={(e) => setSheetId(e.target.value)}  />
+                  
+                  <div class="tooltip-container">
+                    <img src={exclamation}  />
+                    
+                    <span class="tooltip">
+                    <p>
+                    Comment trouver votre Sheet ID ?</p>
+                <p>1-Ouvrez votre Google Sheet.</p>    
+                <p>2-Dans l'URL, repérez la partie après "/d/" et avant "/edit" - c'est votre Sheet ID.</p>      
+                <p> 3-Copiez ce code et collez-le ci-dessous:</p>     
+                    
+                      https://docs.google.com/spreadsheets/d/<span class="green">SheetID</span>/edit#gid=0</span>
+                  </div>
+
+                </div>
+                 
+<button className='button' onClick={handleValiderClick}>Valider</button>
               </div>
-  
-              {/* Table header */}
-              <div className={data.length !== 0 ? 'table-header' : "table-header-null"}>
-                  {data.length !== 0 ? <div className="content-section-title">table data</div> : null}
-              </div>
-  
-              {/* Table content */}
-              {data && <ul>
-                  {data.map((element) =>
-                      <li key={element.id} className="adobe-product">
-                          {/* Your existing code to display each row... */}
-                      </li>
-                  )}
-              </ul>}
-          <NotificationContainer/>
+    <NotificationContainer/>
+        
+             
+        
           </div>
       
- </div>
+
   )
   }  
 export default ImportFromSheet;

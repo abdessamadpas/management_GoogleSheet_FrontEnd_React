@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import PopUpAdd from './popUpAdd';
 import PopupOpen from './PopupOpen'; // import at the top of New.jsx
 import EditPopup from './EditPopup';
-import '../components/new.css';
+import "./new.css";
 import Visibility from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -246,7 +246,7 @@ function New() {
             </div>
 
             <div  style={{ height: 400, width: '96%',padding: '20px' }}>
-                <h2>Data <b>Details</b></h2>
+                
                 <TableContainer component={Paper}>
                 
                

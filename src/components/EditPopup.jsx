@@ -29,7 +29,9 @@ import 'react-notifications/lib/notifications.css';
         const handleSubmit = async () => {
             
             try {
+                
                 await axios.put(`http://localhost:8080/api/v1/googlesheets/persons/${updatedPerson.id}`, updatedPerson);
+                
                 createNotification('success', 'Data saved successfully', 'Success');
                 setTimeout(() => {
                     onClose(true);

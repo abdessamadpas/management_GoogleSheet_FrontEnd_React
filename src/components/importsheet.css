@@ -1,0 +1,38 @@
+.section1{
+	display: flex;
+	gap: 20px;    width: 463px;
+}
+.search-bar {
+    height: 40px;
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    padding-left: 16px;
+    border-radius: 4px;
+}
+
+.tooltip-container {
+
+}
+
+.tooltip-container img{
+    width: 31px;
+    height: 25px;
+}
+.tooltip {
+  margin-top: -30px;
+  position: absolute;
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  padding: 7px;
+  border-radius: 5px;
+  width: auto;
+  text-align: center;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}

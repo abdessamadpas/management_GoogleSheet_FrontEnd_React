@@ -4,7 +4,7 @@ import close from '../assets/images/remove.png';
 import { NotificationManager, NotificationContainer } from 'react-notifications';
 import { Element } from 'react-scroll';
 import 'react-notifications/lib/notifications.css';
-import '../App.css';
+import './PopUpAdd.css';
 import PropTypes from 'prop-types';
 function PopUpAdd({ togglePopup } ) {
 
@@ -109,8 +109,10 @@ function PopUpAdd({ togglePopup } ) {
     <div className="popup">
       <div className='popupHeader'>
         <h1>Add</h1>
-        <button className="closePopup" onClick={togglePopup}>
-          <img src={close} alt="Close" />
+        <button className="closePopup" onClick={togglePopup}
+        style={{ background: 'none', border: 'none' }} >
+          <img src={close} alt="Close"  className="noBackground"/>
+         
         </button>
       </div>
       <Element name="scroll-containerAdd" className="scroll-containerAdd">

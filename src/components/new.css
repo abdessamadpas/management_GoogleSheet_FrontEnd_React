@@ -10,7 +10,21 @@
     gap: 8px; /* spacing between buttons */
 }
 
-.action-button {
+.action-button  {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    box-shadow: none;
+    appearance: none; /* remove default styles in some browsers */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.action-button  {
     background-color: transparent;
     border: none;
     padding: 0;
@@ -35,7 +49,7 @@
     transform: translate(-50%, -50%);
     padding: 20px;
     background-color: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -77,6 +91,7 @@
     padding: 10px;
     text-decoration: none;
     font-size: 14px;
+
 }
 
 .link-like-button:focus {
@@ -90,4 +105,3 @@
     text-decoration: none;
     color: #0ee02e;
 }
-.update-popup p{color: #14162b;}
