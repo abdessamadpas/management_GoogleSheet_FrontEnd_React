@@ -14,13 +14,49 @@ function ImportFromSheet() {
       setOpenPopupId(id === openPopupId ? null : id);
   };
 
+  const handleValiderClick = async () => {
+    // Check if sheetId is empty
+    if (!sheetId) {
+      createNotification('info');
+      return;
+    }
+    
+    // Log the sheetId for debugging
+    console.log("Sheet ID:", sheetId);
+  
+    try {
+      // Send GET request to your backend with the sheetId
+      const response = await axios.get(`http://localhost:8080/api/v1/googlesheets/${sheetId}`);
+      
+      // If successful, update the data state with the new data
+      setData(prevData => [...prevData, response.data]);
+      
+      // Clear the sheetId state (and consequently the input field)
+      setSheetId('');
+      
+      // Display a success notification
+      createNotification('success');  // Corrected this line
+    } catch (error) {
+      // Log errors for debugging and user information
+      if (error.response) {
+        console.error("There was a response error:", error.response.data);
+      } else if (error.request) {
+        console.error("The request was made but no response was received");
+      } else {
+        console.error("Error setting up the request", error.message);
+      }
+      
+      // Display an error notification
+      createNotification('error');
+    }
+  };
   const createNotification = (type) => {
     switch (type) {
       case 'info':
         NotificationManager.info('Info message');
         break;
       case 'success':
-        NotificationManager.success('Importation avec succès');
+        NotificationManager.success('Importation avec succès');  // Adjusted the message to your desired text
         break;
       case 'error':
         NotificationManager.error('Error message', 'Operation Failed', 5000);
@@ -29,32 +65,8 @@ function ImportFromSheet() {
         break;
     }
   };
-
-  const handleValiderClick = async () => {
-  if (!sheetId) {
-    createNotification('info');
-    return;
-  }
   
-  try {
-    console.log(sheetId);
-    const response =  await axios.get(`http://localhost:8080/api/v1/googlesheets/${sheetId}`);
-    
-    setData(prevData => [...prevData, response.data]);
-    setSheetId('');
-    createNotification('success');  // Corrected this line
-  } catch (error) {
-    // Axios puts the response inside the error in case of HTTP errors
-    if (error.response) {
-      console.error("There was a response error:", error.response.data);
-    } else if (error.request) {
-      console.error("The request was made but no response was received");
-    } else {
-      console.error("Error setting up the request", error.message);
-    }
-    createNotification('error');
-  }
-};
+  
     return (
       <div className="center-container">
      
